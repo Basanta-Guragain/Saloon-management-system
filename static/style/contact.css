@@ -1,0 +1,130 @@
+ /* Main Container for Contact Page */
+ body {
+     background-color: #fafafa;
+ }
+
+ .contact-page {
+     display: flex;
+     justify-content: space-between;
+     align-items: flex-start;
+     max-width: 1500px;
+     margin: 50px;
+     gap: 30px;
+ }
+
+ /* Contact Form Styling */
+ .contact-container {
+     flex: 1;
+     padding: 30px;
+     background: white;
+     border-radius: 12px;
+     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+ }
+
+ .contact-title {
+     font-size: 24px;
+     font-weight: bold;
+     color: #333;
+     margin-bottom: 20px;
+     text-align: center;
+ }
+
+ /* Input Styling */
+ .input-group {
+     display: flex;
+     flex-direction: column;
+     margin-bottom: 15px;
+ }
+
+ .input-group label {
+     font-size: 16px;
+     font-weight: 500;
+     margin-bottom: 5px;
+     color: #555;
+ }
+
+ .input-group input,
+ .input-group textarea {
+     width: 100%;
+     padding: 12px;
+     font-size: 16px;
+     border: 2px solid #ccc;
+     border-radius: 8px;
+     background: #f9f9f9;
+     transition: 0.3s ease-in-out;
+ }
+
+ .input-group input:focus,
+ .input-group textarea:focus {
+     border-color: #2563eb;
+     background: white;
+     box-shadow: 0px 0px 8px rgba(37, 99, 235, 0.2);
+ }
+
+ .submit-button {
+     width: 100%;
+     padding: 14px;
+     font-size: 18px;
+     font-weight: bold;
+     color: white;
+     background: #2563eb;
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     transition: 0.3s ease-in-out;
+     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ .submit-button:hover {
+     background: #1e40af;
+ }
+
+ /* Salon Info Styling */
+ .salon-info {
+     flex: 1;
+     padding: 30px;
+     padding-bottom: 75px;
+     background: white;
+     border-radius: 12px;
+     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+ }
+
+ .info-title {
+     font-size: 22px;
+     font-weight: bold;
+     color: #333;
+     margin-bottom: 15px;
+ }
+
+ .info-text {
+     font-size: 16px;
+     color: #555;
+     margin-bottom: 20px;
+ }
+
+ .info-item {
+     display: flex;
+     align-items: center;
+     font-size: 16px;
+     color: #555;
+     margin-bottom: 12px;
+ }
+
+ .icon {
+     font-size: 20px;
+     color: #2563eb;
+     margin-right: 10px;
+ }
+
+ /* Responsive Layout */
+ @media (max-width: 768px) {
+     .contact-page {
+         flex-direction: column;
+         align-items: center;
+     }
+
+     .contact-container,
+     .salon-info {
+         width: 80%;
+     }
+ }

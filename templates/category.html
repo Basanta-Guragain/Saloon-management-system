@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Category{% endblock %}
+{%block content%}
+
+
+<link href="{% static 'style/service.css' %}" rel="stylesheet">
+<link href="{% static 'style/book-page.css' %}" rel="stylesheet">
+
+<section class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center mb-6">
+        {% if service %} {{ service.0.get_category_display }} {% else %} No Services Available {% endif %}
+    </h1>
+
+     
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for s in service %}
+        <div class="border rounded-lg shadow-md p-4 bg-white"> 
+            <!-- Service Image -->
+            <img src="{{ s.service_img.url }}" alt="{{ s.name }}" class="w-full h-40 object-cover rounded-lg">
+
+            <!-- Service Name -->
+            <h2 class="text-lg font-semibold mt-2">{{ s.name }}</h2>
+
+            <!-- Price -->
+            <p class="text-gray-800 font-bold">rs {{ s.price }}</p>
+
+            <!-- Booking Button -->
+         
+             
+            
+            <button 
+    class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-2 openBookingBtn" 
+    data-service-id="{{ s.id }}" 
+    data-service-name="{{ s.name }}">
+    Book Now
+</button>
+
+        
+        
+          
+        </div>
+             
+        {% empty %}
+                <p class="text-center col-span-3 text-gray-600">No services available for this category.</p>
+        {% endfor %}
+    </div>
+</section> 
+
+ <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{% url 'userauth:booking_create' %}">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bookingModalLabel">Book a Service</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- User Info -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input name="name" type="text" class="form-control" required value="{{ initial_data.name }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" required value="{{ initial_data.email }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="id_phone_number" class="form-label">Phone Number</label>
+            <input type="tel" name="phone_number" id="id_phone_number" class="form-control" required 
+            pattern="[0-9]{10}" inputmode="numeric" placeholder="98xxxxxx">
+          </div>
+
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input name="date" type="date" class="form-control" required min="{{ today }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="time" class="form-label">Time</label>
+            <select name="time" required>
+              {% for value, label in available_time_slots %}
+                <option value="{{ value }}">{{ label }}</option>
+             {% endfor %}
+            </select>
+
+          </div>
+
+           <div class="mb-3">
+            <label class="form-label">Selected Service</label>
+            <input type="text" id="selectedServiceName" class="form-control" readonly>
+            <input type="hidden" name="services" id="selectedServiceId">
+          </div>
+
+           <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label for="additionalServices" class="form-label mb-0">Add More Services</label>
+              <a class="btn btn-sm btn-outline-primary" id="showCategoryDropdown">+ Add Service</a>
+
+            </div>
+
+             <select id="categoryDropdown" class="form-select mb-2 d-none">
+              <option value="">-- Select Category --</option>
+              {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+              {% endfor %}
+            </select>
+
+            <select name="additional_services[]" id="additionalServices" class="form-select" multiple>
+
+             </select>
+          </div>
+        </div>
+
+         <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+ {% if messages %}
+  <div id="bookingSuccess" class="position-fixed top-50 start-50 translate-middle p-4 bg-success text-white rounded shadow-lg" style="z-index: 1056;">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const bookingSuccess = document.getElementById("bookingSuccess");
+
+       bookingSuccess.classList.remove("d-none");
+
+       setTimeout(() => {
+        bookingSuccess.classList.add("d-none");
+      }, 4000);
+    });
+  </script>
+{% endif %}
+
+{% comment %} new code {% endcomment %}
+<script>
+  const allServices = {{ all_services|safe }};
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+  const bookingButtons = document.querySelectorAll('.openBookingBtn');
+  const selectedServiceName = document.getElementById('selectedServiceName');
+  const selectedServiceId = document.getElementById('selectedServiceId');
+  const additionalServicesSelect = document.getElementById('additionalServices');
+  const showCategoryDropdown = document.getElementById('showCategoryDropdown');
+  const categoryDropdown = document.getElementById('categoryDropdown');
+  const modalCloseBtn = document.querySelector('.btn-close');
+
+  let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+
+   function updateServiceDisplay() {
+    localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+
+    const mainService = allServices.find(s => s.id == selectedServices[0]);
+    selectedServiceName.value = mainService?.name || '';
+    selectedServiceId.value = mainService?.id || '';
+
+    additionalServicesSelect.innerHTML = '';
+    selectedServices.slice(1).forEach(id => {
+      const service = allServices.find(s => s.id == id);
+      if (service) {
+        const option = document.createElement('option');
+        option.value = service.id;
+        option.textContent = service.name;
+        option.selected = true;
+        additionalServicesSelect.appendChild(option);
+      }
+    });
+  }
+
+  bookingButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const serviceId = button.getAttribute('data-service-id');
+
+      if (!selectedServices.includes(serviceId)) {
+        selectedServices.push(serviceId);
+        localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
+      }
+
+      updateServiceDisplay();
+      bookingModal.show();
+    });
+  });
+
+  showCategoryDropdown.addEventListener('click', () => {
+    categoryDropdown.classList.remove('d-none');
+    bookingModal.hide();
+  });
+
+  categoryDropdown.addEventListener('change', () => {
+    const selectedCategory = categoryDropdown.value;
+    const matchingServices = allServices.filter(s => s.category === selectedCategory);
+
+    matchingServices.forEach(service => {
+      if (!selectedServices.includes(service.id)) {
+        selectedServices.push(service.id);
+      }
+    });
+
+    updateServiceDisplay();
+    categoryDropdown.classList.add('d-none');
+    bookingModal.show(); // Reopen modal
+  });
+
+  modalCloseBtn.addEventListener('click', () => {
+    selectedServices = [];
+    localStorage.removeItem('selectedServices');
+    selectedServiceName.value = '';
+    selectedServiceId.value = '';
+    additionalServicesSelect.innerHTML = '';
+  });
+
+   const bookingForm = document.querySelector('form');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', () => {
+      localStorage.removeItem('selectedServices');
+    });
+  }
+
+   if (selectedServices.length > 0) {
+    updateServiceDisplay();
+  }
+});
+</script>
+
+  
+{% endblock %}

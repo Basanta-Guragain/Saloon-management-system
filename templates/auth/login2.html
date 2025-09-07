@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+</head>
+<body>
+    <div class="a"> <h1>Cutmy</h1></div>
+    <div class="form-container">
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+
+        <!-- Show messages above h3 Login -->
+        {% if messages %}
+            <div class="error-messages">
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h3>Login</h3>
+
+        <div>
+            <label for="name">Email</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your email" title="Enter your full name">
+        </div>
+
+        <div>
+            <label for="password1">Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password1" name="password1" required placeholder="Enter password" title="Enter your password">
+                <span class="toggle-password" onclick="togglePassword('password1', this)">👁️</span>
+            </div>
+        </div>
+
+        <button type="submit">Login</button>
+        <div class="center-container">
+            <p><a href="{% url 'signup' %}">Signup</a></p>
+        </div>
+    </form>
+
+    <script>
+        function togglePassword(fieldId, icon) {
+            const field = document.getElementById(fieldId);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                field.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+    </script>
+</body>
+</html>

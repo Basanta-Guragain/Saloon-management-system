@@ -1,0 +1,102 @@
+/* Container Styling */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* Title Styling */
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    /* Default to 1 column */
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns on medium screens and up */
+    }
+}
+
+/* Card Styling */
+.grid .border {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 1.5rem;
+}
+
+/* Hover effect for cards */
+.grid .border:hover {
+    transform: translateY(-5px);
+    /* Lift card up */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
+}
+
+/* Image Styling */
+.grid .border img {
+    width: 80%;
+    height: 297px;
+    /* Fixed height for images */
+    object-fit: cover;
+    object-position: center;
+    /* Ensure the image is centered */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Service Name Styling */
+.grid .border h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+/* Price Styling */
+.grid .border p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #2d2d2d;
+    margin-bottom: 1rem;
+}
+
+/* Button Styling */
+.grid .border button {
+    width: 45%;
+    padding: 0.75rem;
+    font-size: 0.7rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.grid .border button:hover {
+    background-color: #2980b9;
+}
+
+/* Empty State Styling */
+.grid .empty-state {
+    grid-column: span 3;
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,119 @@
+/* Modal Container */
+#booking-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    visibility: hidden;
+    /* Start hidden, will be shown with JS */
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Modal Box */
+#booking-modal .bg-white {
+    position: relative;
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    /* Ensure it's responsive */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Close Button */
+.close-btn {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #e53e3e;
+    /* Red color on hover */
+}
+
+/* Header */
+#booking-modal h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #333;
+    text-align: center;
+}
+
+/* Form Input and Button */
+#booking-form input,
+#booking-form button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* Input Fields */
+#booking-form input[type="text"],
+#booking-form input[type="email"],
+#booking-form input[type="date"],
+#booking-form input[type="time"] {
+    margin-bottom: 16px;
+    background-color: #f9f9f9;
+}
+
+/* Submit Button */
+#booking-form button[type="submit"] {
+    background-color: #38a169;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+#booking-form button[type="submit"]:hover {
+    background-color: #2f855a;
+}
+
+/* Service List Styling */
+#services-list {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    list-style-type: disc;
+    list-style-position: inside;
+    font-size: 0.9rem;
+    color: #4a4a4a;
+}
+
+/* Add More Service Button */
+#add-more-service {
+    color: #3182ce;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+#add-more-service:hover {
+    color: #2b6cb0;
+}
+
+/* Small Adjustments for Mobile */
+@media (max-width: 768px) {
+    #booking-modal .bg-white {
+        padding: 16px;
+    }
+
+    #booking-modal h2 {
+        font-size: 1.1rem;
+    }
+}

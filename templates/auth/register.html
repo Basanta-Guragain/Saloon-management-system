@@ -1,0 +1,142 @@
+<!-- customer/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Registration</title>
+    <style> 
+         
+        body {
+             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #1c1c1c, #444);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .container {
+            {% comment %} background: rgba(0, 0, 0, 0.8); {% endcomment %}
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #ffcc00;
+            position:top;
+        }
+
+        form {
+        
+            border-radius:4px;
+            padding:35px;
+            padding-left:5px;
+            padding-top:5px;
+            
+             
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ffcc00;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ffcc00;
+            box-shadow: 0 0 5px #ffcc00;
+        }
+
+        button {
+            width: 100%;
+            background: #ffcc00;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e6b800;
+        }
+    </style>
+</head>
+<body>
+     
+
+    <form method="POST" action="{% url 'userauth:register' %}">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="name" class="block mb-1">Your Name</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                class="w-full border rounded px-3 py-2" 
+                placeholder="Enter your full name" 
+                title="Enter your full name">
+        </div>
+        
+        <div class="mb-4">
+            <label for="email" class="block mb-1">Email Address</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                class="w-full border rounded px-3 py-2" 
+                placeholder="Enter your email" 
+                title="Enter your email address">
+        </div>
+        
+        <div class="mb-4">
+            <label for="password" class="block mb-1">Password</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                required 
+                class="w-full border rounded px-3 py-2" 
+                placeholder="Enter your password" 
+                title="Enter a secure password">
+        </div>
+        
+        <div class="mb-4">
+            <label for="phone" class="block mb-1">Phone Number</label>
+            <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                required 
+                class="w-full border rounded px-3 py-2" 
+                placeholder="Enter your phone number" 
+                title="Enter your phone number">
+        </div>
+        
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Register</button>
+    </form>
+    
+
+</body>
+</html>

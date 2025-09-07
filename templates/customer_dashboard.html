@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'style/dashboard.css' %}" rel="stylesheet">
+<div class="container mt-5">
+
+    <!-- Profile Card -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body d-flex align-items-center">
+            <!-- Profile Avatar with first letter of customer name -->
+            <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-3"
+                 style="width: 80px; height: 80px; font-size: 36px; font-weight: 600;">
+                {{ customer.name|first|upper }}
+            </div>
+            <div>
+                <h4 class="card-title mb-1">{{ customer.name }}</h4>
+                <p class="mb-1"><i class="fas fa-envelope me-1"></i> {{ customer.user.email }}</p>
+             </div>
+        </div>
+    </div>
+
+    <!-- Cool Info Cards -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <i class="fas fa-star fa-2x text-primary mb-2"></i>
+                    <h5 class="card-title">Loyalty Points</h5>
+                    <p class="card-text">Earn points on every booking Services!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <i class="fas fa-scissors fa-2x text-success mb-2"></i>
+                    <h5 class="card-title">New Styles</h5>
+                    <p class="card-text">Check out trending hairstyles this month.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-warning">
+                <div class="card-body">
+                    <i class="fas fa-bolt fa-2x text-warning mb-2"></i>
+                    <h5 class="card-title">Exclusive Offers</h5>
+                    <p class="card-text">Special discounts for loyal customers!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <h3 class="mb-3">Your Bookings</h3>
+    {% if bookings %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Services</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.time }}</td>
+                            <td>
+                                {% for service in booking.services.all %}
+                                    {{ service.name }}{% if not forloop.last or booking.additional_services.all %}, {% endif %}
+                                {% endfor %}
+                                {% for service in booking.additional_services.all %}
+                                    {{ service.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            You have not booked any services yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

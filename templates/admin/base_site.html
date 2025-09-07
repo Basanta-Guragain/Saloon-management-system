@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Salon Admin Dashboard{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="/static/images/salon_logo.png" alt="Salon Logo" style="height: 40px; vertical-align: middle;">
+        Salon Management Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+    <div style="padding: 10px; color: #888;">
+        Welcome, {{ user.username }}! You are in the admin dashboard.
+    </div>
+{% endblock %}

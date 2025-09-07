@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<!-- Link to the custom CSS file -->
+<link href="{% static 'style/style.css' %}" rel="stylesheet">
+
+<!-- Header -->
+<header>
+    <h1>About Our Online Hair Booking System</h1>
+</header>
+
+<!-- About Section -->
+<section>
+    <div class="grid md:grid-cols-2">
+        <div>
+            <h2 class="text-3xl font-extrabold mb-6">Who We Are</h2>
+            <p>
+                Our online hair booking system helps customers schedule haircuts, styles, and treatments at their convenience. We aim to simplify salon management with easy booking and customer-friendly features.
+            </p>
+        </div>
+        <div>
+            <img src="{% static 'service/saloon_image.jpg'%}" alt="salon image" class="rounded-lg shadow-md">
+        </div>
+    </div>
+</section>
+
+<!-- Features Grid -->
+<section>
+    <h1 class="text-2xl font-extrabold text-center mb-6">Key Features</h1>
+    <div class="grid md:grid-cols-3">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+            <img src="{% static 'service/online_booking.jpg'%}" alt="Booking"  class="feature-image"">
+            <h3>Online Booking</h3>
+            <p>Easily schedule appointments with professional hairstylists.</p>
+        </div>
+
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+            <img src="{% static 'service/admin.jpg'%}" alt="Admin" class="rounded-lg shadow-md">
+            <h3>Admin Dashboard</h3>
+            <p>Manage appointments, stylists, and customers with ease.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+            <img src="{% static 'service/catlog.jpg'%}" alt="Style"  class="feature-image">
+            <h3>Service Catalog</h3>
+            <p>Browse and select different hairstyles and treatments.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

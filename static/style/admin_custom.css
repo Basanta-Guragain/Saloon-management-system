@@ -1,0 +1,23 @@
+/* admin_custom.css */
+table#result_list {
+    border-collapse: separate;
+    /* Use 'separate' to enable border-radius */
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    /* rounded corners */
+    overflow: hidden;
+    /* clip the corners if needed */
+}
+
+table#result_list th,
+table#result_list td {
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: center;
+}
+
+table#result_list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
